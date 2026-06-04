@@ -1,45 +1,68 @@
-# Hito2 - Migraciones y recuperación de datos con Django
+# Django Database Migrations & Data Recovery Manager
 
-## Description
-This repository contains the code for a project focused on managing database migrations and data recovery using Django.
+Este repositorio contiene un proyecto especializado en el desarrollo Backend con **Django**, enfocado en la gestión avanzada del ciclo de vida de bases de datos a través de su ORM. El sistema implementa estrategias robustas para el control de versiones de esquemas mediante **migraciones**, automatización de llenado de datos (*data seeding*), y flujos seguros de respaldo y **recuperación de información** en un entorno controlado.
 
-## Tech Stack
-- Python 3.x
-- Django Framework
-- PostgreSQL Database (assumed based on common practices)
+## 🚀 Características y Capacidades Técnicas
 
-## Usage
-To set up and run this project, follow these steps:
+* **Control de Versiones de Base de Datos:** Uso avanzado del sistema de migraciones de Django para la creación, modificación y evolución estructural de tablas sin pérdida de consistencia.
+* **Estrategia de Recuperación de Datos:** Implementación de mecanismos de respaldo (*backup*) y restauración (*restore*) de estados de la base de datos mediante comandos nativos de Django (`dumpdata` y `loaddata`).
+* **Modelado de Datos Avanzado:** Definición de esquemas relacionales, restricciones de integridad, relaciones (One-to-Many / Many-to-Many) y optimización de consultas a través del ORM.
+* **Sembrado de Datos (Seeding):** Automatización del proceso de carga de datos iniciales o de prueba utilizando archivos de configuración estructurados (JSON/YAML).
 
-1. **Clone the Repository:**
+## 🛠️ Stack Tecnológico
+
+* **Framework Principal:** Django 4.x / 5.x (Python)
+* **ORM:** Django ORM
+* **Base de Datos:** [Ejemplo: PostgreSQL / SQLite]
+* **Formatos de Serialización:** JSON
+
+## ⚙️ Arquitectura del Proyecto y Solución de Problemas
+
+El núcleo de este desarrollo consistió en simular un escenario real de mantenimiento y contingencia en servidores de producción:
+
+1. **Evolución del Esquema (Migraciones):** Se gestionaron flujos de cambios estructurales en los modelos de Django, garantizando que el paso de esquemas antiguos a nuevos se realizara de forma fluida mediante los comandos `makemigrations` y `migrate`.
+2. **Consistencia en la Recuperación:** Se diseñó una arquitectura donde el estado completo del sistema de base de datos puede ser serializado a un archivo JSON plano, permitiendo una recuperación ante fallos (*Disaster Recovery*) inmediata que restaura la integridad de las relaciones entre tablas.
+3. **Aislamiento de Entornos:** Configuración orientada a la separación de datos de desarrollo y producción para ejecutar pruebas de migración seguras.
+
+## 📌 Comandos Clave Utilizados
+
+* `python manage.py makemigrations` - Generación de los archivos de migración basados en los cambios del modelo.
+* `python manage.py migrate` - Aplicación e impacto de los cambios estructurales en el motor de base de datos.
+* `python manage.py dumpdata > backup.json` - Serialización y respaldo de la base de datos completa.
+* `python manage.py loaddata backup.json` - Proceso de recuperación, parseo e inyección de datos respaldados.
+
+## 🔧 Instalación y Configuración Local
+
+Sigue estos pasos para desplegar el entorno de pruebas localmente:
+
+1. **Clonar el repositorio:**
    ```bash
-   git clone https://github.com/yourusername/Hito2-Migraciones-y-recuperacion-de-datos-con-Django.git
-   cd Hito2-Migraciones-y-recuperacion-de-datas-con-Django
+   git clone [https://github.com/longaresf/django-database-migrations.git](https://github.com/longaresf/django-database-migrations.git)
+   ````
+2. Ingresar al directorio:
+   Bash
+   cd django-database-migrations
 
-2. **Install Dependencies:**
-   - Django and its dependencies are installed via `pip`.
-   ```bash
-   pip install -r requirements-inmobiliaria.txt
+3. Crear y activar un entorno virtual (Recomendado):
+   Bash
+   python -m venv venv
+   source venv/bin/activate  # En Windows usa: venv\Scripts\activate
 
-3. **Run Migrations:**
-   - Apply database migrations to create the necessary tables.
-   ```bash
+4. Instalar dependencias:
+   Bash
+   pip install -r requirements.txt
+
+5. Ejecutar migraciones y restaurar datos:
+   Bash
    python manage.py migrate
+   python manage.py loaddata [nombre_del_archivo_de_respaldo].json
 
-4. **Start the Development Server:**
-   - Run Django's development server to test your application locally.
-   ```bash
+6. Iniciar el servidor de desarrollo:
+   Bash
    python manage.py runserver
 
-5. **Access Application:**
-   - Open a web browser and navigate to `http://127.0.0.1:8000/` to access the application.
+   ✒️ Créditos y Autoría
 
-## Notes
-- Ensure you have PostgreSQL installed on your system.
-- The project assumes that all necessary configurations are in place, such as database settings in Django's configuration files.
+    Francisco Longares - Desarrollador Backend Python - longaresf
 
----
-
-This README provides a high-level overview of how to set up and run the project. For detailed instructions or further customization, consult the provided documentation within the repository.
-
-**Note:** This README is based solely on the file structure analysis provided (`manage.py`), indicating this is indeed a Django Web Application. The absence of other technologies (like Java, Android-specific files, Node.js) and the presence of `requirements-inmobiliaria.txt` suggest Python as the primary language and Django framework as the technology stack.
+    Este proyecto representa la resolución de los hitos avanzados prácticos del programa de formación Full Stack Python en Desafío Latam.
